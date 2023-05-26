@@ -2,7 +2,7 @@
   "name": "documentational-portfolio-server",
   "version": "1.0.0",
   "description": "The purpose of a documentational portfolio is to provide a comprehensive overview of an individual's capabilities or an organization's accomplishments. ",
-  "main": "index.js",
+  "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts"
