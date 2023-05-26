@@ -10,13 +10,13 @@ const app: Application = express();
 
 const options: express.RequestHandler[] = [
   cors({
-    origin: "http://localhost:3000",
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   }),
   helmet(),
-  logger("combined"),
+  logger("dev"),
   express.json({ limit: "50mb" }),
   express.urlencoded({ extended: true }),
 ];
