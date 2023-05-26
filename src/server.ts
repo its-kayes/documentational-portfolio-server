@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import app from "./app";
-import { MONGO_URI } from "./config/siteEnv";
+import { MONGO_URI, PORT } from "./config/siteEnv";
 import AppError from "./utils/appError";
 
-const port: number = 3000;
+const port: number = PORT || 3000;
 
 main().catch((err) => console.log(err));
 
