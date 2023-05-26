@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import AppError from "../../utils/appError";
 import catchAsync from "../../utils/catchAsync";
-import { ipLookup } from "../../utils/ipLookUp";
+import { ipLookup } from "../../utils/ipLookup";
 import { addSubscriberToDB } from "./subscription.services";
 
 export const addSubscriber = catchAsync(
