@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import catchAsync from "../../utils/catchAsync";
-import { ipLookup } from "../../utils/ipLookUp";
+import { ipLookup } from "../../utils/ipLookup";
 import { saveLoveToDB } from "./love.services";
 import AppError from "../../utils/appError";
 
