@@ -29,6 +29,11 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
 });
 
+app.get("/favicon.ico", (req, res) => {
+  // Respond with an empty 204 status code
+  res.sendStatus(204);
+});
+
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
