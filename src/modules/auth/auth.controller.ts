@@ -94,7 +94,7 @@ export const login = catchAsync(
 
     // <------ Is User Exit -------->
     const isUser = await User.findOne({ email: email }).select("password");
-    if (!isUser) return next(new AppError("Invalid User", 404));
+    if (!isUser) return next(new AppError("Invalid User", 400));
 
     // <------ Is User Verify -------->
     const isPassOk = await bcrypt.compare(pass, isUser.password);
@@ -119,7 +119,8 @@ export const login = catchAsync(
     return res.status(200).json({
       message: "Login Successfully",
       isPassOk,
-      id: await getIpAddress(req),
+      ip: await getIpAddress(req),
+      token: "11x111",
     });
   }
 );
@@ -148,7 +149,7 @@ export const changePassword = catchAsync(
       );
       if (!saveAttempt)
         return next(new AppError("Failed to save attempt", 400));
-      return next(new AppError("Invalid User", 404));
+      return next(new AppError("Invalid User", 400));
     }
 
     // <------ Is User Verify -------->
@@ -193,12 +194,12 @@ export const forgetPassword = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email }: IForgetPassType = req.query as unknown as IForgetPassType;
 
-    if (!email) return next(new AppError("Email required !", 404));
+    if (!email) return next(new AppError("Email required !", 400));
 
     const isUser = await User.findOne({ email })
       .lean()
       .select("passwordResetToken");
-    if (!isUser) return next(new AppError("No user exist !", 404));
+    if (!isUser) return next(new AppError("No user exist !", 400));
 
     const generateToken: string = crypto.randomBytes(64).toString("hex");
 
@@ -231,7 +232,7 @@ export const resetPassword = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { token, newPass, confirmPass }: IResetPassword = req.body;
     if (!token || !newPass || !confirmPass)
-      return next(new AppError("Required property missing", 404));
+      return next(new AppError("Required property missing", 400));
 
     if (newPass !== confirmPass)
       return next(new AppError("Confirm Password doesn't match", 400));
@@ -248,7 +249,7 @@ export const resetPassword = catchAsync(
       .lean()
       .select(["passwordResetToken", "email"]);
 
-    if (!isUser) return next(new AppError("User does't exits", 404));
+    if (!isUser) return next(new AppError("User does't exits", 400));
 
     if (isUser.passwordResetToken !== decodeToken.token)
       return next(new AppError("Token doesn't match, UnAuthorized User", 402));
