@@ -72,10 +72,13 @@ export const registerController = catchAsync(
       next(new AppError(`${response.message}`, 400));
     }
 
+    const token = await sendTokens(newUser);
+
     //        <---------- Send Token to Email ------------>
 
     res.status(200).json({
       status: "success",
+      token,
       message:
         "Registration successful. Please check your email for verification code",
     });
