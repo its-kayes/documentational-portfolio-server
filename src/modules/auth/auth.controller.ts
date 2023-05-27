@@ -24,6 +24,7 @@ import {
 } from "./auth.services";
 import { IpBlock } from "./ipBlock.model";
 import { FRONTEND_BASE_URL, JWT_SECRET } from "../../config/siteEnv";
+import { sendTokens } from "../../utils/sendToken";
 
 // <--------------------------- User Register ------------------------>
 export const registerController = catchAsync(
@@ -116,11 +117,13 @@ export const login = catchAsync(
     if (!clearLoginAttempts)
       return next(new AppError("Failed to clear login attempt", 400));
 
+    const token = await sendTokens(isUser);
+
     return res.status(200).json({
       message: "Login Successfully",
       isPassOk,
       ip: await getIpAddress(req),
-      token: "11x111",
+      token,
     });
   }
 );
