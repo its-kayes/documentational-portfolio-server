@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import logger from "morgan";
-// import helmet from "helmet";
+import helmet from "helmet";
 import { v1 } from "./api-version/v1";
 import { Request, Response, Application, NextFunction } from "express";
 import AppError from "./utils/appError";
@@ -15,7 +15,7 @@ const options: express.RequestHandler[] = [
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   }),
-  // helmet(),
+  helmet(),
   logger("dev"),
   express.json({ limit: "50mb" }),
   express.urlencoded({ extended: true }),
@@ -26,7 +26,7 @@ app.use(options);
 app.use("/api/v1", v1);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World!");
+  res.send("You are looking developer's portfolio server (kayes).");
 });
 
 app.get("/favicon.ico", (req, res) => {
