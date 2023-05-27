@@ -21,8 +21,6 @@ const lovedSchema = new Schema<ILove>(
     },
   },
   {
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
     timestamps: true,
   }
 );

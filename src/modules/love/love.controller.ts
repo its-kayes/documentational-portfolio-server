@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import catchAsync from "../../utils/catchAsync";
 import { ipLookup } from "../../utils/ipLookup";
-import { saveLoveToDB } from "./love.services";
+import { getLovesFromDB, saveLoveToDB } from "./love.services";
 import AppError from "../../utils/appError";
 
 export const giveLove = catchAsync(
@@ -15,6 +15,19 @@ export const giveLove = catchAsync(
     res.status(200).json({
       status: "success",
       message: "Love given successfully",
+    });
+  }
+);
+
+export const getLoves = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const data = await getLovesFromDB(next);
+    if (!data) return next(new AppError("Love not given", 400));
+
+    res.status(200).json({
+      status: "success",
+      message: "Love given successfully",
+      data,
     });
   }
 );

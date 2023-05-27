@@ -18,3 +18,11 @@ export const saveLoveToDB = async (
 
   return saveLove;
 };
+
+export const getLovesFromDB = async (next: NextFunction) => {
+  const data = await Love.find({}).lean().sort({ createdAt: -1 });
+
+  if (!data) return next(new AppError("Love not given", 400));
+
+  return data;
+};

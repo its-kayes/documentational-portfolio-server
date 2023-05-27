@@ -16,8 +16,6 @@ const subscriptionModel = new Schema<ISubscription>(
     },
   },
   {
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
     timestamps: true,
   }
 );

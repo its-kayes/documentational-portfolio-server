@@ -2,7 +2,10 @@ import { NextFunction, Request, Response } from "express";
 import AppError from "../../utils/appError";
 import catchAsync from "../../utils/catchAsync";
 import { ipLookup } from "../../utils/ipLookup";
-import { addSubscriberToDB } from "./subscription.services";
+import {
+  addSubscriberToDB,
+  getSubscribersFromDB,
+} from "./subscription.services";
 
 export const addSubscriber = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -18,6 +21,19 @@ export const addSubscriber = catchAsync(
     res.status(201).json({
       status: "success",
       subscription,
+    });
+  }
+);
+
+export const getSubscribers = catchAsync(
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const data = await getSubscribersFromDB(next);
+    if (!data) return next(new AppError("Subscribers not found", 400));
+
+    res.status(200).json({
+      status: "success",
+      message: "Subscribers fetched successfully",
+      data,
     });
   }
 );

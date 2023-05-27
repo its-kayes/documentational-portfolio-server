@@ -12,3 +12,11 @@ export const addSubscriberToDB = async (
 
   return subscription;
 };
+
+export const getSubscribersFromDB = async (next: NextFunction) => {
+  const data = await Subscription.find({}).lean().sort({ createdAt: -1 });
+
+  if (!data) return next(new AppError("Subscription not given", 400));
+
+  return data;
+};
