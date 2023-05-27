@@ -21,7 +21,6 @@ export const giveLove = catchAsync(
 
 export const getLoves = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.headers.token, "token");
     const data = await getLovesFromDB(next);
     if (!data) return next(new AppError("Love not given", 400));
 

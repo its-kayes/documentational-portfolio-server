@@ -23,6 +23,12 @@ export const isLoggedIn = catchAsync(
     // Token exists but is not valid, throw this error
     if (!decodedData.id) return next(new AppError("Invalid token", 403));
 
+    const isAdmin = await User.findById(decodedData.id).select("role");
+
+    if (!isAdmin || isAdmin.role !== "admin") {
+      return next(new AppError("You are not authorized to access", 403));
+    }
+
     req.user = (await User.findById(decodedData.id)) as IUser;
     next();
   }
