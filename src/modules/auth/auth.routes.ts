@@ -9,10 +9,10 @@ import {
 
 const router: Router = Router();
 
-router.post("/register", registerController);
+// router.post("/register", registerController);
 router.get("/login", login);
-router.post("/change-password", changePassword);
-router.get("/forget-password", forgetPassword);
-router.post("/reset-password", resetPassword);
+// router.post("/change-password", changePassword);
+// router.get("/forget-password", forgetPassword);
+// router.post("/reset-password", resetPassword);
 
 export { router as authRoutes };
