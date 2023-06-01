@@ -11,3 +11,5 @@ router.use("/love", loveRoutes);
 router.use("/auth", isIpBlock, authRoutes);
 
 export { router as v1 };
+
+// Path: src\api-version\v2.ts
